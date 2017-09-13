@@ -9,7 +9,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-//papas
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -26,6 +26,97 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
     testCompile 'junit:junit:4.12'
+}
+
+group = 'com.github.reyhac.libreria' // Change this to match your package name
+version = '1.0.1'
+apply plugin: 'com.github.dcendents.android-maven'
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                artifactId 'utilities'
+
+                name 'utilities'
+                description 'utilities'
+
+                licenses {
+                    license {
+                        name 'MIT'
+                        url 'https://opensource.org/licenses/MIT'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'reyhac'
+                        name 'Juan Reynaldo Escobar'
+                        email 'jrescobarmiron.com'
+                    }
+                }
+                scm {
+                    connection 'https://github.com/reyhachy/libreria.git'
+                    developerConnection 'https://github.com/reyhachy/libreria.git'
+
+                }
+            }
+        }
+    }
+}
+apply plugin: 'com.jfrog.bintray'
+
+if (project.hasProperty("android")) {
+    // deploy aar
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+} else {
+    // deploy jars only
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+bintray {
+    user = 'reyhac'
+    key = '54e82ce9da2e0bfc9130d5ec45f31d2c00f81657'
+    pkg {
+        repo = 'maven'
+        name = 'utilities'
+
+        version {
+            name = '1.0.4'
+            desc = 'test'
+            released = new Date()
+            vcsTag = '1.0.4'
+        }
+
+        licenses = ['MIT']
+        publish = true
+        publicDownloadNumbers = true
+        vcsUrl = 'https://github.com/reyhachy/libreria.git'
+        websiteUrl = 'https://github.com/reyhachy/libreria  '
+    }
+    configurations = ['archives']
+
 }
