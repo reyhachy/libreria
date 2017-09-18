@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.1'
 
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0.5"
 
@@ -26,12 +26,12 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:appcompat-v7:26.1'
     testCompile 'junit:junit:4.12'
 }
 
 group = 'com.github.reyhac.libreria' // Change this to match your package name
-version = '1.0.5'
+version = '1.0.7'
 apply plugin: 'com.github.dcendents.android-maven'
 install {
     repositories.mavenInstaller {
@@ -105,10 +105,10 @@ bintray {
         name = 'utilities'
 
         version {
-            name = '1.0.4'
+            name = '1.0.7'
             desc = 'test'
             released = new Date()
-            vcsTag = '1.0.4'
+            vcsTag = '1.0.7'
         }
 
         licenses = ['MIT']
