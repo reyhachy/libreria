@@ -14,8 +14,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.totalplay.fieldforcetpenlace.R;
-import com.totalplay.fieldforcetpenlace.library.utils.StringUtils;
+import com.totalplay.utilities.R;
+import com.totalplay.utils.StringUtils;
 
 import java.util.List;
 

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">utilities</string>
+    <string name="v_catalog_edit_text_search">Buscar…</string>
+    <string name="dialog_cancel">Cancelar</string>
 </resources>

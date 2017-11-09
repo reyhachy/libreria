@@ -152,10 +152,10 @@ public abstract class BaseWSManager {
                                 Gson gson = new Gson();
                                 mWSCallback.onSuccessLoadResponse(webServiceKey, gson.fromJson(json, tClass));
                             } else {
-                                mWSCallback.onErrorLoadResponse(webServiceKey, "Ha ocurrido un error al procesar la información. Intente nuevamente.");
+                                mWSCallback.onErrorLoadResponse(webServiceKey, "Ha ocurrido un error. Intente nuevamente.");
                             }
                         } catch (IOException e) {
-                            mWSCallback.onErrorLoadResponse(webServiceKey, "Ha ocurrido un error al procesar la información. Intente nuevamente.");
+                            mWSCallback.onErrorLoadResponse(webServiceKey, "Ha ocurrido un error al procesar. Intente nuevamente.");
                             e.printStackTrace();
                         }
                     } else {
@@ -166,7 +166,7 @@ public abstract class BaseWSManager {
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     t.printStackTrace();
-                    mWSCallback.onErrorLoadResponse(webServiceKey, "Ha ocurrido un error de comunicación. Intente nuevamente.");
+                    mWSCallback.onErrorLoadResponse(webServiceKey, "Ha ocurrido un error. Intente nuevamente.");
                 }
             });
         } else {
