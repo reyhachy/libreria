@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.1'
+    compileSdkVersion 25
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 26
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0.5"
 
@@ -19,14 +19,38 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
+
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'https://maven.fabric.io/public' }
+    }
+    dependencies {
+        classpath "io.realm:realm-gradle-plugin:4.1.0"
+    }
+}
+
+apply plugin: 'realm-android'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.1'
+    compile 'com.android.support:appcompat-v7:25.4.0'
+
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+
+    compile 'com.orhanobut:logger:2.1.1'
+
+    compile 'com.android.support:recyclerview-v7:25.4.0'
+
     testCompile 'junit:junit:4.12'
 }
 
