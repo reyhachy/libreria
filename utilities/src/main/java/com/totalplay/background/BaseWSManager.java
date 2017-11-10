@@ -50,15 +50,15 @@ public abstract class BaseWSManager {
         return this;
     }
 
-    abstract Call<ResponseBody> getWebService(String webServiceValue, WSBaseRequest WSBaseRequest);
+    protected abstract Call<ResponseBody> getWebService(String webServiceValue, WSBaseRequest WSBaseRequest);
 
-    abstract Call<ResponseBody> getQueryWebService(String webServiceValue, String requestValue);
+    protected abstract Call<ResponseBody> getQueryWebService(String webServiceValue, String requestValue);
 
-    abstract String getJsonDebug(String requestUrl);
+    protected abstract String getJsonDebug(String requestUrl);
 
-    abstract boolean getErrorDebugEnabled();
+    protected abstract boolean getErrorDebugEnabled();
 
-    abstract boolean getDebugEnabled();
+    protected abstract boolean getDebugEnabled();
 
     public <R extends WSBaseResponseInterface> R requestWsSync(Class<R> tClass, String webServiceKey, WSBaseRequest wsBaseRequest) {
         if (getDebugEnabled()) {

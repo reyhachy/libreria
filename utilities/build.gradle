@@ -46,7 +46,7 @@ dependencies {
 
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
-
+    compile 'com.android.support:design:25.4.0'
     compile 'com.orhanobut:logger:2.1.1'
 
     compile 'com.android.support:recyclerview-v7:25.4.0'
@@ -55,7 +55,7 @@ dependencies {
 }
 
 group = 'com.github.reyhac.libreria' // Change this to match your package name
-version = '1.0.7'
+
 apply plugin: 'com.github.dcendents.android-maven'
 install {
     repositories.mavenInstaller {
@@ -120,7 +120,7 @@ artifacts {
     archives javadocJar
     archives sourcesJar
 }
-
+version = '1.0.18'
 bintray {
     user = 'reyhac'
     key = '54e82ce9da2e0bfc9130d5ec45f31d2c00f81657'
@@ -129,10 +129,10 @@ bintray {
         name = 'utilities'
 
         version {
-            name = '1.0.8'
+            name = '1.0.18'
             desc = 'test'
             released = new Date()
-            vcsTag = '1.0.8'
+            vcsTag = '1.0.18'
         }
 
         licenses = ['MIT']
