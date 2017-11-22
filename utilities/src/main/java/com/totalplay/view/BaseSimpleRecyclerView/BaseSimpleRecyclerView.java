@@ -23,7 +23,7 @@ public class BaseSimpleRecyclerView {
     public BaseSimpleAdapter adapter;
     public LinearLayoutManager layout;
     private RefreshBaseRecyclerCallback mRefreshBaseReclycer;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    public SwipeRefreshLayout mSwipeRefreshLayout;
     private ViewGroup emptyView;
     private View parentView;
 
@@ -42,6 +42,11 @@ public class BaseSimpleRecyclerView {
                 mRefreshBaseReclycer.onRefreshItems();
             }
         });
+    }
+
+    public void disableSwipeRefresh(){
+        mSwipeRefreshLayout.setEnabled(false);
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     public BaseSimpleRecyclerView(AppCompatActivity appCompatActivity, int recyclerViewId) {
