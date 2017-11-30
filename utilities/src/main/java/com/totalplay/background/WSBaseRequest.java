@@ -7,7 +7,7 @@ import java.io.Serializable;
  * FFM
  */
 
-public class WSBaseRequest implements Serializable {
+public class WSBaseRequest implements Serializable, WSBaseRequestInterface {
 
 
 }

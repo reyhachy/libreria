@@ -50,7 +50,7 @@ public abstract class BaseWSManager {
         return this;
     }
 
-    protected abstract Call<ResponseBody> getWebService(String webServiceValue, WSBaseRequest WSBaseRequest);
+    protected abstract Call<ResponseBody> getWebService(String webServiceValue, WSBaseRequestInterface WSBaseRequest);
 
     protected abstract Call<ResponseBody> getQueryWebService(String webServiceValue, String requestValue);
 
@@ -60,7 +60,7 @@ public abstract class BaseWSManager {
 
     protected abstract boolean getDebugEnabled();
 
-    public <R extends WSBaseResponseInterface> R requestWsSync(Class<R> tClass, String webServiceKey, WSBaseRequest wsBaseRequest) {
+    public <R extends WSBaseResponseInterface> R requestWsSync(Class<R> tClass, String webServiceKey, WSBaseRequestInterface wsBaseRequest) {
         if (getDebugEnabled()) {
             Gson gson = new Gson();
             Logger.d(gson.toJson(wsBaseRequest));
@@ -82,15 +82,15 @@ public abstract class BaseWSManager {
         return null;
     }
 
-    public <R extends WSBaseResponseInterface> BaseWSManager requestWs(final Class<R> tClass, final String webServiceKey, WSBaseRequest wsBaseRequest) {
+    public <R extends WSBaseResponseInterface> BaseWSManager requestWs(final Class<R> tClass, final String webServiceKey, WSBaseRequestInterface wsBaseRequest) {
         if (getDebugEnabled()) {
             Gson gson = new Gson();
             R response;
             response = gson.fromJson(getJsonDebug(webServiceKey), tClass);
             Logger.d(webServiceKey);
-            Log.d(":V",webServiceKey);
+            Log.d(":V", webServiceKey);
             Logger.d(gson.toJson(wsBaseRequest));
-            if (getErrorDebugEnabled()){
+            if (getErrorDebugEnabled()) {
                 if (errorRegisters.contains(webServiceKey)) {
                     mWSCallback.onSuccessLoadResponse(webServiceKey, response);
                 } else {
