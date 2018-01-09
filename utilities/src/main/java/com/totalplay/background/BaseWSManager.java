@@ -26,7 +26,7 @@ import retrofit2.Response;
  */
 
 @SuppressWarnings({"all"})
-public abstract class BaseWSManager {
+public abstract class BaseWSManager<D extends BaseDefinition> {
 
     private Context mContext;
     private WSCallback mWSCallback;
@@ -50,9 +50,11 @@ public abstract class BaseWSManager {
         return this;
     }
 
-    protected abstract Call<ResponseBody> getWebService(String webServiceValue, WSBaseRequestInterface WSBaseRequest);
+    protected abstract D getDefinition();
 
-    protected abstract Call<ResponseBody> getQueryWebService(String webServiceValue, String requestValue);
+//    protected abstract Call<ResponseBody> getWebService(String webServiceValue, WSBaseRequestInterface WSBaseRequest);
+//
+//    protected abstract Call<ResponseBody> getQueryWebService(String webServiceValue, String requestValue);
 
     protected abstract String getJsonDebug(String requestUrl);
 
@@ -60,14 +62,14 @@ public abstract class BaseWSManager {
 
     protected abstract boolean getDebugEnabled();
 
-    public <R extends WSBaseResponseInterface> R requestWsSync(Class<R> tClass, String webServiceKey, WSBaseRequestInterface wsBaseRequest) {
+    public <R extends WSBaseResponseInterface> R requestWsSync(Class<R> tClass, String webServiceKey, Call<ResponseBody> call) {
         if (getDebugEnabled()) {
             Gson gson = new Gson();
-            Logger.d(gson.toJson(wsBaseRequest));
+//            Logger.d(gson.toJson(wsBaseRequest));
             return gson.fromJson(getJsonDebug(webServiceKey), tClass);
         }
         try {
-            mBaseResponseCall = getWebService(webServiceKey, wsBaseRequest);
+            mBaseResponseCall = call;
             Response<ResponseBody> bodyResponse = mBaseResponseCall.execute();
             if (bodyResponse.isSuccessful()) {
                 String json = bodyResponse.body().string();
@@ -82,14 +84,14 @@ public abstract class BaseWSManager {
         return null;
     }
 
-    public <R extends WSBaseResponseInterface> BaseWSManager requestWs(final Class<R> tClass, final String webServiceKey, WSBaseRequestInterface wsBaseRequest) {
+    public <R extends WSBaseResponseInterface> BaseWSManager requestWs(final Class<R> tClass, final String webServiceKey, Call<ResponseBody> call) {
         if (getDebugEnabled()) {
             Gson gson = new Gson();
             R response;
             response = gson.fromJson(getJsonDebug(webServiceKey), tClass);
             Logger.d(webServiceKey);
             Log.d(":V", webServiceKey);
-            Logger.d(gson.toJson(wsBaseRequest));
+//            Logger.d(gson.toJson(wsBaseRequest));
             if (getErrorDebugEnabled()) {
                 if (errorRegisters.contains(webServiceKey)) {
                     mWSCallback.onSuccessLoadResponse(webServiceKey, response);
@@ -100,13 +102,11 @@ public abstract class BaseWSManager {
             } else {
                 mWSCallback.onSuccessLoadResponse(webServiceKey, response);
             }
-
-
             return this;
         }
         if (ConnectionUtils.isConnected(mContext)) {
             mWSCallback.onRequestWS(webServiceKey);
-            mBaseResponseCall = getWebService(webServiceKey, wsBaseRequest);
+            mBaseResponseCall = call;
 
             mBaseResponseCall.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -137,43 +137,43 @@ public abstract class BaseWSManager {
         return this;
     }
 
-    public <R extends WSBaseResponseInterface> BaseWSManager requestWs(final Class<R> tClass, final String webServiceKey, String requestValue) {
-        if (ConnectionUtils.isConnected(mContext)) {
-            mWSCallback.onRequestWS(webServiceKey);
-            mBaseResponseCall = getQueryWebService(webServiceKey, requestValue);
-
-            mBaseResponseCall.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    if (response.isSuccessful()) {
-                        try {
-                            String json = response.body().string();
-                            if (isJSONValid(json)) {
-                                Gson gson = new Gson();
-                                mWSCallback.onSuccessLoadResponse(webServiceKey, gson.fromJson(json, tClass));
-                            } else {
-                                mWSCallback.onErrorLoadResponse(webServiceKey, "Ha ocurrido un error. Intente nuevamente.");
-                            }
-                        } catch (IOException e) {
-                            mWSCallback.onErrorLoadResponse(webServiceKey, "Ha ocurrido un error al procesar. Intente nuevamente.");
-                            e.printStackTrace();
-                        }
-                    } else {
-                        mWSCallback.onErrorLoadResponse(webServiceKey, "Ha ocurrido un error al consultar el servicio. Intente nuevamente");
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    t.printStackTrace();
-                    mWSCallback.onErrorLoadResponse(webServiceKey, "Ha ocurrido un error. Intente nuevamente.");
-                }
-            });
-        } else {
-            mWSCallback.onErrorConnection();
-        }
-        return this;
-    }
+//    public <R extends WSBaseResponseInterface> BaseWSManager requestWs(final Class<R> tClass, final String webServiceKey, String requestValue) {
+//        if (ConnectionUtils.isConnected(mContext)) {
+//            mWSCallback.onRequestWS(webServiceKey);
+//            mBaseResponseCall = getQueryWebService(webServiceKey, requestValue);
+//
+//            mBaseResponseCall.enqueue(new Callback<ResponseBody>() {
+//                @Override
+//                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                    if (response.isSuccessful()) {
+//                        try {
+//                            String json = response.body().string();
+//                            if (isJSONValid(json)) {
+//                                Gson gson = new Gson();
+//                                mWSCallback.onSuccessLoadResponse(webServiceKey, gson.fromJson(json, tClass));
+//                            } else {
+//                                mWSCallback.onErrorLoadResponse(webServiceKey, "Ha ocurrido un error. Intente nuevamente.");
+//                            }
+//                        } catch (IOException e) {
+//                            mWSCallback.onErrorLoadResponse(webServiceKey, "Ha ocurrido un error al procesar. Intente nuevamente.");
+//                            e.printStackTrace();
+//                        }
+//                    } else {
+//                        mWSCallback.onErrorLoadResponse(webServiceKey, "Ha ocurrido un error al consultar el servicio. Intente nuevamente");
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                    t.printStackTrace();
+//                    mWSCallback.onErrorLoadResponse(webServiceKey, "Ha ocurrido un error. Intente nuevamente.");
+//                }
+//            });
+//        } else {
+//            mWSCallback.onErrorConnection();
+//        }
+//        return this;
+//    }
 
     public boolean isJSONValid(String test) {
         try {

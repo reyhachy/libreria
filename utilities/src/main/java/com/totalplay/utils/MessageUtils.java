@@ -29,8 +29,7 @@ public class MessageUtils {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         LayoutInflater inflater = context.getLayoutInflater();
-        @SuppressLint("InflateParams")
-        final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
+        @SuppressLint("InflateParams") final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
         dialogBuilder.setView(dialogView);
 
         final EditText edt = (EditText) dialogView.findViewById(R.id.cuastom_quantity_edittext);
@@ -66,7 +65,9 @@ public class MessageUtils {
 
     public static void toast(Context context, String message) {
         if (context == null) return;
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        if (mToast != null) mToast.cancel();
+        mToast = Toast.makeText(context, message, Toast.LENGTH_LONG);
+        mToast.show();
     }
 
     public static void progress(Activity activity, int message) {

@@ -14,12 +14,12 @@ public abstract class ConnectionUtils {
     }
 
     public static boolean isConnected(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService("connectivity");
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         try {
             return connectivityManager.getNetworkInfo(0).getState() == NetworkInfo.State.CONNECTED || connectivityManager.getNetworkInfo(1).getState() == NetworkInfo.State.CONNECTED;
         } catch (Exception var5) {
-            ConnectivityManager CManager = (ConnectivityManager)context.getSystemService("connectivity");
+            ConnectivityManager CManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo NInfo = CManager.getActiveNetworkInfo();
             return NInfo != null && NInfo.isConnected() && NInfo.isAvailable();
         }
