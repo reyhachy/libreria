@@ -120,7 +120,7 @@ artifacts {
     archives javadocJar
     archives sourcesJar
 }
-version = '1.1.1'
+version = '1.1.2'
 bintray {
     user = 'reyhac'
     key = '54e82ce9da2e0bfc9130d5ec45f31d2c00f81657'
@@ -129,10 +129,10 @@ bintray {
         name = 'utilities'
 
         version {
-            name = '1.1.1'
+            name = '1.1.2'
             desc = 'test'
             released = new Date()
-            vcsTag = '1.1.1'
+            vcsTag = '1.1.2'
         }
 
         licenses = ['MIT']
