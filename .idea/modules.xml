@@ -3,11 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\reype\OneDrive\Documentos\libreria\app\app.iml" filepath="C:\Users\reype\OneDrive\Documentos\libreria\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/libreria.iml" filepath="$PROJECT_DIR$/libreria.iml" />
-      <module fileurl="file://C:\Users\reype\OneDrive\Documentos\libreria\libreria.iml" filepath="C:\Users\reype\OneDrive\Documentos\libreria\libreria.iml" />
       <module fileurl="file://$PROJECT_DIR$/utilities/utilities.iml" filepath="$PROJECT_DIR$/utilities/utilities.iml" />
-      <module fileurl="file://C:\Users\reype\OneDrive\Documentos\libreria\utilities\utilities.iml" filepath="C:\Users\reype\OneDrive\Documentos\libreria\utilities\utilities.iml" />
     </modules>
   </component>
 </project>

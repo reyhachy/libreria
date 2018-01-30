@@ -2,6 +2,7 @@ package com.totalplay.utils;
 
 /**
  * Created by reype on 29/01/2018.
+ * @deprecated 
  */
 
 public class ExternalStorageReadException extends Exception {

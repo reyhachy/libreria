@@ -19,7 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by dflabs on 11/16/16.
+ * Created by reype on 29/01/2018.
+ * @deprecated
  */
 public class FileUtils {
     public static boolean writeToFile(File file, String content) {

@@ -2,12 +2,10 @@ package com.totalplay.utils;
 
 /**
  * Created by reype on 29/01/2018.
+ * @deprecated
  */
 public class ExternalStorageWriteException extends Exception {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     private String message;
 
