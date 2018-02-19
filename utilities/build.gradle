@@ -129,10 +129,10 @@ bintray {
         name = 'utilities'
 
         version {
-            name = '\'2.0.0'
+            name = '2.0.0'
             desc = 'test'
             released = new Date()
-            vcsTag = '\'2.0.0'
+            vcsTag = '2.0.0'
         }
 
         licenses = ['MIT']
