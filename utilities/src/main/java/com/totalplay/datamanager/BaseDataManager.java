@@ -125,6 +125,11 @@ public abstract class BaseDataManager {
             return this;
         }
 
+        public Query filter(String filter, int value) {
+            realmQuery.equalTo(filter, value);
+            return this;
+        }
+
         public Query filter(String filter, Double value) {
             realmQuery.equalTo(filter, value);
             return this;
