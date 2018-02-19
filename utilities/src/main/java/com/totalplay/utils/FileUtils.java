@@ -223,7 +223,7 @@ public class FileUtils {
                 }
             }
         } catch (IOException e) {
-            Log.e("Error de excepción", e.getMessage());
+            Log.e("Error de excepcion", e.getMessage());
         }
         return cacheFile;
     }
