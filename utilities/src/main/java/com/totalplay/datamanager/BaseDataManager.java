@@ -120,6 +120,21 @@ public abstract class BaseDataManager {
             return this;
         }
 
+        public Query filter(String filter, Integer value) {
+            realmQuery.equalTo(filter, value);
+            return this;
+        }
+
+        public Query filter(String filter, Double value) {
+            realmQuery.equalTo(filter, value);
+            return this;
+        }
+
+        public Query filter(String filter, Float value) {
+            realmQuery.equalTo(filter, value);
+            return this;
+        }
+
         public Query between(String filter, Date valueOne, Date valueTwo) {
             realmQuery.between(filter, valueOne, valueTwo);
             return this;
