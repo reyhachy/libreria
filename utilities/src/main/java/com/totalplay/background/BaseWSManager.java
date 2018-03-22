@@ -70,6 +70,8 @@ public abstract class BaseWSManager<D extends BaseDefinition> {
         }
         try {
             mBaseResponseCall = call;
+            if (mBaseResponseCall != null && mBaseResponseCall.isExecuted())
+                mBaseResponseCall.cancel();
             Response<ResponseBody> bodyResponse = mBaseResponseCall.execute();
             if (bodyResponse.isSuccessful()) {
                 String json = bodyResponse.body().string();
@@ -91,6 +93,7 @@ public abstract class BaseWSManager<D extends BaseDefinition> {
             response = gson.fromJson(getJsonDebug(webServiceKey), tClass);
             Logger.d(webServiceKey);
             Log.d(":V", webServiceKey);
+//            new Gson().toJson(((OkHttpCall) ((ExecutorCallAdapterFactory.ExecutorCallbackCall) call).delegate).args)
 //            Logger.d(gson.toJson(wsBaseRequest));
             if (getErrorDebugEnabled()) {
                 if (errorRegisters.contains(webServiceKey)) {
@@ -108,6 +111,8 @@ public abstract class BaseWSManager<D extends BaseDefinition> {
             mWSCallback.onRequestWS(webServiceKey);
             mBaseResponseCall = call;
 
+            if (mBaseResponseCall != null && mBaseResponseCall.isExecuted())
+                mBaseResponseCall.cancel();
             mBaseResponseCall.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -136,44 +141,6 @@ public abstract class BaseWSManager<D extends BaseDefinition> {
         }
         return this;
     }
-
-//    public <R extends WSBaseResponseInterface> BaseWSManager requestWs(final Class<R> tClass, final String webServiceKey, String requestValue) {
-//        if (ConnectionUtils.isConnected(mContext)) {
-//            mWSCallback.onRequestWS(webServiceKey);
-//            mBaseResponseCall = getQueryWebService(webServiceKey, requestValue);
-//
-//            mBaseResponseCall.enqueue(new Callback<ResponseBody>() {
-//                @Override
-//                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                    if (response.isSuccessful()) {
-//                        try {
-//                            String json = response.body().string();
-//                            if (isJSONValid(json)) {
-//                                Gson gson = new Gson();
-//                                mWSCallback.onSuccessLoadResponse(webServiceKey, gson.fromJson(json, tClass));
-//                            } else {
-//                                mWSCallback.onErrorLoadResponse(webServiceKey, "Ha ocurrido un error. Intente nuevamente.");
-//                            }
-//                        } catch (IOException e) {
-//                            mWSCallback.onErrorLoadResponse(webServiceKey, "Ha ocurrido un error al procesar. Intente nuevamente.");
-//                            e.printStackTrace();
-//                        }
-//                    } else {
-//                        mWSCallback.onErrorLoadResponse(webServiceKey, "Ha ocurrido un error al consultar el servicio. Intente nuevamente");
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                    t.printStackTrace();
-//                    mWSCallback.onErrorLoadResponse(webServiceKey, "Ha ocurrido un error. Intente nuevamente.");
-//                }
-//            });
-//        } else {
-//            mWSCallback.onErrorConnection();
-//        }
-//        return this;
-//    }
 
     public boolean isJSONValid(String test) {
         try {

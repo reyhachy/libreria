@@ -1,6 +1,8 @@
 package com.totalplay.utils.validators;
 
 import android.support.design.widget.TextInputLayout;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 
 import java.util.regex.Matcher;
@@ -39,15 +41,21 @@ public class EditTextValidator extends FormValidator.Validator {
     @Override
     public boolean isValid() {
         boolean valid = true;
-        if (minCharacters != -1) {
-            valid = editText.getText().toString().trim().length() >= minCharacters;
-        }
-        if (maxCharacters != -1) {
-            valid &= maxCharacters >= editText.getText().toString().trim().length();
-        }
-        if (pattern != null) {
-            Matcher matcher = pattern.matcher(editText.getText().toString().trim());
-            return valid & matcher.matches();
+        ViewGroup viewGroup = ((ViewGroup)editText.getParent());
+        ViewGroup secondViewGroup = (ViewGroup) editText.getParent().getParent();
+        if (editText.getVisibility() == View.VISIBLE
+                && (viewGroup == null || viewGroup.getVisibility() == View.VISIBLE)
+                && (secondViewGroup == null || secondViewGroup.getVisibility() == View.VISIBLE)){
+            if (minCharacters != -1) {
+                valid = editText.getText().toString().trim().length() >= minCharacters;
+            }
+            if (maxCharacters != -1) {
+                valid &= maxCharacters >= editText.getText().toString().trim().length();
+            }
+            if (pattern != null) {
+                Matcher matcher = pattern.matcher(editText.getText().toString().trim());
+                return valid & matcher.matches();
+            }
         }
         return valid;
     }

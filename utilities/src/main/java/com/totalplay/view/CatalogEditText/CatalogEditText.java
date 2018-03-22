@@ -15,8 +15,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.totalplay.utilities.R;
-import com.totalplay.utils.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,12 +25,13 @@ import java.util.List;
  * Enlace
  */
 
-public class CatalogEditText<T extends CatalogObject> extends AppCompatEditText {
+@SuppressWarnings({"unchecked"})
+public class CatalogEditText<T> extends AppCompatEditText {
 
-    public List<T> mItems;
     CharSequence mHint;
     OnCatalogSelectedListener<T> onCatalogSelectedListener;
     ListAdapter mSpinnerAdapter;
+    public List<T> mItems;
     private T mSelectedObject;
 
     public CatalogEditText(Context context) {
@@ -47,9 +49,23 @@ public class CatalogEditText<T extends CatalogObject> extends AppCompatEditText 
         mHint = getHint();
     }
 
+    public void setCatalogs(T[] catalogs) {
+        mItems = new ArrayList<>();
+        mItems = Arrays.asList(catalogs);
+        setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mItems));
+//        if (mItems.size() == 1) {
+//            mSelectedObject = mItems.get(0);
+//            setText(mSelectedObject.toString());
+//        }
+    }
+
     public void setCatalogs(List<T> catalogs) {
         mItems = catalogs;
         setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mItems));
+//        if (mItems.size() == 1) {
+//            mSelectedObject = mItems.get(0);
+//            setText(mSelectedObject.toString());
+//        }
     }
 
     @Override
@@ -72,7 +88,7 @@ public class CatalogEditText<T extends CatalogObject> extends AppCompatEditText 
             View dialogView = LayoutInflater.from(getContext())
                     .inflate(R.layout.view_catalog_edit_text, null);
             TextView titleTextView = (TextView) dialogView.findViewById(R.id.v_catalog_edit_text_title);
-            ListView listView = (ListView) dialogView.findViewById(R.id.v_catalog_edit_text_list);
+            final ListView listView = (ListView) dialogView.findViewById(R.id.v_catalog_edit_text_list);
             EditText searchEditText = (EditText) dialogView.findViewById(R.id.v_catalog_edit_text_search);
 
             titleTextView.setText(mHint);
@@ -80,17 +96,32 @@ public class CatalogEditText<T extends CatalogObject> extends AppCompatEditText 
             builder.setView(dialogView);
             builder.setPositiveButton(R.string.dialog_cancel, null);
 
-            AlertDialog dialog = builder.create();
+            final AlertDialog dialog = builder.create();
 
             listView.setOnItemClickListener((parent, view1, position, id) -> {
                 T object = (T) listView.getAdapter().getItem(position);
                 mSelectedObject = object;
-                setText(object.toString());
+                CatalogEditText.this.setText(object.toString());
                 if (onCatalogSelectedListener != null) {
                     onCatalogSelectedListener.onItemCatalogSelectedListener(object, position);
                 }
                 dialog.dismiss();
             });
+//            RxTextView.afterTextChangeEvents(searchEditText)
+//                    .subscribe(event ->
+//                    {
+//                        String search = event.view().getText().toString().trim();
+//                        if (TextUtils.isEmpty(search)) {
+//                            listView.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mItems));
+//                        } else {
+//                            Observable.from(mItems)
+//                                    .filter(t ->
+//                                            t.toString().toLowerCase().contains(search.toLowerCase())
+//                                    )
+//                                    .toList()
+//                                    .subscribe(ts -> listView.setAdapter(new ArrayAdapter<T>(getContext(), android.R.layout.simple_list_item_1, ts)));
+//                        }
+//                    });
             dialog.show();
         });
     }
@@ -102,16 +133,17 @@ public class CatalogEditText<T extends CatalogObject> extends AppCompatEditText 
     public void setSelectedObject(T object) {
         if (object != null) {
             mSelectedObject = object;
-            setText(StringUtils.stringNotEmpty(object.toString()));
+            setText(object.toString());
         }
+    }
+
+
+    public interface OnCatalogSelectedListener<T> {
+        void onItemCatalogSelectedListener(T catalogItem, int selectedIndex);
     }
 
     public T getSelectedValue() {
         return mSelectedObject;
-    }
-
-    public interface OnCatalogSelectedListener<T> {
-        void onItemCatalogSelectedListener(T catalogItem, int selectedIndex);
     }
 
 }
