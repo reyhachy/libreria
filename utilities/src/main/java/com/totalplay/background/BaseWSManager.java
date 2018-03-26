@@ -118,9 +118,13 @@ public abstract class BaseWSManager<D extends BaseDefinition> {
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response.isSuccessful()) {
                         try {
-                            String json = response.body().string();
-                            Gson gson = new Gson();
-                            mWSCallback.onSuccessLoadResponse(webServiceKey, gson.fromJson(json, tClass));
+                            if (response.body() != null) {
+                                String json = response.body().string();
+                                Gson gson = new Gson();
+                                mWSCallback.onSuccessLoadResponse(webServiceKey, gson.fromJson(json, tClass));
+                            } else {
+                                mWSCallback.onErrorLoadResponse(webServiceKey, "Without response frow ws");
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
