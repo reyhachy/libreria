@@ -17,16 +17,6 @@
         tools:ignore="RtlSymmetry"
         tools:text="Title" />
 
-    <EditText
-        android:id="@+id/v_catalog_edit_text_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:hint="@string/v_catalog_edit_text_search" />
-
     <ListView
         android:id="@+id/v_catalog_edit_text_list"
         android:layout_width="match_parent"

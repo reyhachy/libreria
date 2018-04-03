@@ -3,19 +3,21 @@ package com.totalplay.view.CatalogEditText;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.totalplay.utilities.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +28,9 @@ import java.util.List;
  */
 
 @SuppressWarnings({"unchecked"})
-public class CatalogEditText<T> extends AppCompatEditText {
+public class CatalogEditText<T extends Serializable> extends AppCompatEditText {
+
+    private static final String KEY_ITEM = "keyItem";
 
     CharSequence mHint;
     OnCatalogSelectedListener<T> onCatalogSelectedListener;
@@ -53,19 +57,11 @@ public class CatalogEditText<T> extends AppCompatEditText {
         mItems = new ArrayList<>();
         mItems = Arrays.asList(catalogs);
         setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mItems));
-//        if (mItems.size() == 1) {
-//            mSelectedObject = mItems.get(0);
-//            setText(mSelectedObject.toString());
-//        }
     }
 
     public void setCatalogs(List<T> catalogs) {
         mItems = catalogs;
         setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mItems));
-//        if (mItems.size() == 1) {
-//            mSelectedObject = mItems.get(0);
-//            setText(mSelectedObject.toString());
-//        }
     }
 
     @Override
@@ -89,7 +85,6 @@ public class CatalogEditText<T> extends AppCompatEditText {
                     .inflate(R.layout.view_catalog_edit_text, null);
             TextView titleTextView = (TextView) dialogView.findViewById(R.id.v_catalog_edit_text_title);
             final ListView listView = (ListView) dialogView.findViewById(R.id.v_catalog_edit_text_list);
-            EditText searchEditText = (EditText) dialogView.findViewById(R.id.v_catalog_edit_text_search);
 
             titleTextView.setText(mHint);
             listView.setAdapter(mSpinnerAdapter);
@@ -107,21 +102,6 @@ public class CatalogEditText<T> extends AppCompatEditText {
                 }
                 dialog.dismiss();
             });
-//            RxTextView.afterTextChangeEvents(searchEditText)
-//                    .subscribe(event ->
-//                    {
-//                        String search = event.view().getText().toString().trim();
-//                        if (TextUtils.isEmpty(search)) {
-//                            listView.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mItems));
-//                        } else {
-//                            Observable.from(mItems)
-//                                    .filter(t ->
-//                                            t.toString().toLowerCase().contains(search.toLowerCase())
-//                                    )
-//                                    .toList()
-//                                    .subscribe(ts -> listView.setAdapter(new ArrayAdapter<T>(getContext(), android.R.layout.simple_list_item_1, ts)));
-//                        }
-//                    });
             dialog.show();
         });
     }
@@ -146,4 +126,14 @@ public class CatalogEditText<T> extends AppCompatEditText {
         return mSelectedObject;
     }
 
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putSerializable(KEY_ITEM, getSelectedValue());
+    }
+
+    public void onLoadSaveInstanceState(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            T item = (T) savedInstanceState.getSerializable(KEY_ITEM);
+            setSelectedObject(item);
+        }
+    }
 }
