@@ -27,10 +27,8 @@ import java.util.List;
  * Enlace
  */
 
-@SuppressWarnings({"unchecked"})
+@SuppressWarnings({"unchecked", "unused"})
 public class CatalogEditText<T extends Serializable> extends AppCompatEditText {
-
-    private static final String KEY_ITEM = "keyItem";
 
     CharSequence mHint;
     OnCatalogSelectedListener<T> onCatalogSelectedListener;
@@ -127,12 +125,12 @@ public class CatalogEditText<T extends Serializable> extends AppCompatEditText {
     }
 
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putSerializable(KEY_ITEM, getSelectedValue());
+        savedInstanceState.putSerializable(String.valueOf(getId()), getSelectedValue());
     }
 
     public void onLoadSaveInstanceState(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            T item = (T) savedInstanceState.getSerializable(KEY_ITEM);
+            T item = (T) savedInstanceState.getSerializable(String.valueOf(getId()));
             setSelectedObject(item);
         }
     }
