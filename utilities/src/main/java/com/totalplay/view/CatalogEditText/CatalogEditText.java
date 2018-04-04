@@ -36,6 +36,8 @@ public class CatalogEditText<T extends Serializable> extends AppCompatEditText {
     public List<T> mItems;
     private T mSelectedObject;
 
+    private String keyInstanceState = "";
+
     public CatalogEditText(Context context) {
         super(context);
         mHint = getHint();
@@ -60,6 +62,10 @@ public class CatalogEditText<T extends Serializable> extends AppCompatEditText {
     public void setCatalogs(List<T> catalogs) {
         mItems = catalogs;
         setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mItems));
+    }
+
+    public void setKeyInstanceState(String keyInstanceState) {
+        this.keyInstanceState = keyInstanceState;
     }
 
     @Override
@@ -125,12 +131,12 @@ public class CatalogEditText<T extends Serializable> extends AppCompatEditText {
     }
 
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putSerializable(String.valueOf(getId()), getSelectedValue());
+        savedInstanceState.putSerializable(keyInstanceState.isEmpty() ? String.valueOf(getId()) : keyInstanceState, getSelectedValue());
     }
 
     public void onLoadSaveInstanceState(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            T item = (T) savedInstanceState.getSerializable(String.valueOf(getId()));
+            T item = (T) savedInstanceState.getSerializable(keyInstanceState.isEmpty() ? String.valueOf(getId()) : keyInstanceState);
             setSelectedObject(item);
         }
     }
