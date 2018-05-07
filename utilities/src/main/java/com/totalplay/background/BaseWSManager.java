@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.orhanobut.logger.BuildConfig;
 import com.orhanobut.logger.Logger;
 import com.totalplay.utils.ConnectionUtils;
 
@@ -91,10 +92,10 @@ public abstract class BaseWSManager<D extends BaseDefinition> {
             Gson gson = new Gson();
             R response;
             response = gson.fromJson(getJsonDebug(webServiceKey), tClass);
-            Logger.d(webServiceKey);
-            Log.d(":V", webServiceKey);
-//            new Gson().toJson(((OkHttpCall) ((ExecutorCallAdapterFactory.ExecutorCallbackCall) call).delegate).args)
-//            Logger.d(gson.toJson(wsBaseRequest));
+            if (BuildConfig.DEBUG) {
+                Logger.d(webServiceKey);
+                Log.d(":V", webServiceKey);
+            }
             if (getErrorDebugEnabled()) {
                 if (errorRegisters.contains(webServiceKey)) {
                     mWSCallback.onSuccessLoadResponse(webServiceKey, response);

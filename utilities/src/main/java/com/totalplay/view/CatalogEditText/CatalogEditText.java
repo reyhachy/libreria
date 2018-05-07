@@ -132,6 +132,7 @@ public class CatalogEditText<T extends Serializable> extends AppCompatEditText {
 
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putSerializable(keyInstanceState.isEmpty() ? String.valueOf(getId()) : keyInstanceState, getSelectedValue());
+        setText("");
     }
 
     public void onLoadSaveInstanceState(@Nullable Bundle savedInstanceState) {
