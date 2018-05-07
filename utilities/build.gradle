@@ -134,7 +134,7 @@ bintray {
             name = '2.0.15'
             desc = 'test'
             released = new Date()
-            vcsTag = '2.0.14'
+            vcsTag = '2.0.15'
         }
 
         licenses = ['MIT']
