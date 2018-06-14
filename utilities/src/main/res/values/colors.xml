@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<resources>
+    <color name="colorPrimary">#2D5BE3</color>
+
+
+    <color name="colorPrimaryDark">#2348B3</color>
+    <color name="colorAccent">#2385f9</color>
+    <color name="blackDark_alpha">#88000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#c2c2c2</color>
+    <color name="color_green_splitter">#3aba4a</color>
+
+    <color name="text_color_gray">#2e3947</color>
+    <color name="text_color_gray_title">#333a48</color>
+
+    <color name="colorBlueA">#65B7DF</color>
+    <color name="colorBlueLetter">#53D2F9</color>
+    <color name="transparent">#0000</color>
+
+
+    <color name="menuDividerColor">#d5dce7</color>
+
+    <color name="red">#ca212b</color>
+
+    <color name="color_grey_postes">#333a48</color>
+
+    <color name="color_black_evidence_register_font">#2e3947</color>
+
+    <color name="gray2">#50c2c2c2</color>
+    <color name="White">#FFFFFF</color>
+    <color name="DarkGray">#A9A9A9</color>
+    <color name="LightGray">#e7e7e7</color>
+    <color name="LightSlateGray">#778899</color>
+    <color name="Black">#000000</color>
+    <color name="Color.Divider">#abcaced4</color>
+    <color name="text_line">#d5dce7</color>
+    <color name="text_line2">#d9dfea</color>#d9dfea
+    <color name="opaque_gray">#f2f2f2</color>
+
+    <color name="toolbar">#3ad5dce7</color>
+
+    <color name="Color.Purple">#8023fe</color>
+    <color name="red_splitter">#fd615e</color>
+    <color name="green_splitter">#59c000</color>
+    <color name="gray_splitter">#55667a</color>
+    <color name="golden">#f5c406</color>
+    <color name="yellow_splitter">#fcc30d</color>
+
+
+    <color name="LightGreen">#09CE4D</color>
+
+
+    <color name="operator_available">#7ed321</color>
+    <color name="operator_busy">#303F9F</color>
+    <color name="operator_free_day">#b9b5b5</color>
+    <color name="operator_eating">#FFC107</color>
+    <color name="operator_vacation">#000000</color>
+    <color name="operator_depot">#9C27B0</color>
+    <color name="operator_out_service">#da000a</color>
+    <color name="operator_technical_support">#f380b3</color>
+
+    <!--Colors PE -->
+    <color name="blue_main_menu">#4e5eff</color>
+    <color name="text_detail">#263238</color>
+    <color name="gray_work_order">#E3E3E3</color>
+
+    <color name="background_arrows">#7f4e5eff</color>
+
+</resources>

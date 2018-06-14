@@ -88,6 +88,7 @@ public abstract class BaseWSManager<D extends BaseDefinition> {
     }
 
     public <R extends WSBaseResponseInterface> BaseWSManager requestWs(final Class<R> tClass, final String webServiceKey, Call<ResponseBody> call) {
+//        ((OkHttpCall) ((ExecutorCallAdapterFactory.ExecutorCallbackCall) call).delegate).args
         if (getDebugEnabled()) {
             Gson gson = new Gson();
             R response;

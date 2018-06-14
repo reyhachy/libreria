@@ -118,6 +118,8 @@ public class CatalogEditText<T extends Serializable> extends AppCompatEditText {
         if (object != null) {
             mSelectedObject = object;
             setText(object.toString());
+        } else {
+            setText("");
         }
     }
 
@@ -132,7 +134,7 @@ public class CatalogEditText<T extends Serializable> extends AppCompatEditText {
 
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putSerializable(keyInstanceState.isEmpty() ? String.valueOf(getId()) : keyInstanceState, getSelectedValue());
-        setText("");
+//        setText("");
     }
 
     public void onLoadSaveInstanceState(@Nullable Bundle savedInstanceState) {

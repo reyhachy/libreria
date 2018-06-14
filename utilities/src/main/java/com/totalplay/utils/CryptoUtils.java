@@ -17,14 +17,13 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * Created by ReyHac on 17/01/18.
+ * Created by totalplay on 11/16/16.
+ * Enlace
  */
-
 public class CryptoUtils {
 
     @SuppressLint("GetInstance")
-    public static String crypt(String text) {
-        String secretKey = "oaguser";
+    public static String crypt(String secretKey, String text) {
         String base64EncryptedString = "";
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -43,19 +42,18 @@ public class CryptoUtils {
 
         } catch (Exception ignored) {
         }
-        return base64EncryptedString;
+        return base64EncryptedString.replace("\n", "");
     }
 
     public static String desEncrypt(String textoEncriptado) {
         String base64EncryptedString = "";
-        String secretKey = "oaguser";
         if (textoEncriptado != null) {
             byte[] message;
             try {
                 message = Base64.decode(textoEncriptado.getBytes("utf-8"), Base64.DEFAULT);
 
                 MessageDigest md = MessageDigest.getInstance("MD5");
-                byte[] digestOfPassword = md.digest(secretKey.getBytes("utf-8"));
+                byte[] digestOfPassword = md.digest("oaguser".getBytes("utf-8"));
                 byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
                 SecretKey key = new SecretKeySpec(keyBytes, "DESede");
 
