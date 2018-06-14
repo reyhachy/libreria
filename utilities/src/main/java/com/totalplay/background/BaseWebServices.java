@@ -5,11 +5,9 @@ import android.util.Base64;
 
 import com.ihsanbal.logging.Level;
 import com.ihsanbal.logging.LoggingInterceptor;
-import com.totalplay.fieldforcetpenlace.BuildConfig;
-import com.totalplay.fieldforcetpenlace.library.utils.GsonUtils;
 import com.totalplay.utilities.BuildConfig;
+import com.totalplay.utils.GsonUtils;
 
-import java.security.cert.CertificateException;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.SSLContext;
@@ -25,6 +23,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+@SuppressWarnings("unused")
 public class BaseWebServices {
 
     protected static Retrofit settingsRetrofit(String url) {
@@ -125,11 +124,11 @@ public class BaseWebServices {
             final TrustManager[] trustAllCerts = new TrustManager[]{
                     new X509TrustManager() {
                         @Override
-                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
                         }
 
                         @Override
-                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
                         }
 
                         @Override

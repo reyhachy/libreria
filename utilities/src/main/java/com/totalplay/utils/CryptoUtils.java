@@ -23,7 +23,8 @@ import javax.crypto.spec.SecretKeySpec;
 public class CryptoUtils {
 
     @SuppressLint("GetInstance")
-    public static String crypt(String secretKey, String text) {
+    public static String crypt(String text) {
+        String secretKey = "oaguser";
         String base64EncryptedString = "";
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
