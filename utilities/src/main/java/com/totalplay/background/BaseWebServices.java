@@ -26,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @SuppressWarnings("unused")
 public class BaseWebServices {
 
-    protected static Retrofit settingsRetrofit(String url) {
+    protected static Retrofit settingsRetrofit(String url, boolean insecureHttp) {
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
         builder.readTimeout(180, TimeUnit.SECONDS);
         builder.connectTimeout(180, TimeUnit.SECONDS);
@@ -43,10 +43,10 @@ public class BaseWebServices {
             return chain.proceed(builder1.build());
         });
 
-        return createRetrofit(builder, url);
+        return createRetrofit(builder, url, insecureHttp);
     }
 
-    protected static Retrofit settingsRetrofitWithOutToken(String url) {
+    protected static Retrofit settingsRetrofitWithOutToken(String url, boolean insecureHttp) {
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
         builder.readTimeout(180, TimeUnit.SECONDS);
         builder.connectTimeout(180, TimeUnit.SECONDS);
@@ -57,10 +57,10 @@ public class BaseWebServices {
             builder.addInterceptor(interceptor);
         }
 
-        return createRetrofit(builder, url);
+        return createRetrofit(builder, url, insecureHttp);
     }
 
-    protected static Retrofit settingsFilesRetrofit(String url) {
+    protected static Retrofit settingsFilesRetrofit(String url, boolean insecureHttp) {
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
         builder.readTimeout(120, TimeUnit.SECONDS);
         builder.connectTimeout(120, TimeUnit.SECONDS);
@@ -75,12 +75,12 @@ public class BaseWebServices {
             return chain.proceed(builder1.build());
         });
 
-        return createRetrofit(builder, url);
+        return createRetrofit(builder, url, insecureHttp);
     }
 
-    private static Retrofit createRetrofit(OkHttpClient.Builder builder, String url) {
+    private static Retrofit createRetrofit(OkHttpClient.Builder builder, String url, boolean insecureHttp) {
         Retrofit retrofit;
-        if (BuildConfig.DEBUG) {
+        if (insecureHttp) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(url)
                     .client(getUnsafeOkHttpClient(builder))
