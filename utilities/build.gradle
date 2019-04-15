@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 27
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion 18
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0.5"
 
@@ -24,6 +24,7 @@ android {
         sourceCompatibility 1.8
     }
 }
+
 
 buildscript {
     repositories {
@@ -43,18 +44,20 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation 'com.android.support:appcompat-v7:25.4.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
 
     implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.2.0'
-    implementation 'com.android.support:design:25.4.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.android.support:design:27.1.1'
     implementation 'com.orhanobut:logger:2.2.0'
 
     implementation 'com.squareup.okhttp:okhttp:2.5.0'
 
-    implementation 'com.android.support:recyclerview-v7:25.4.0'
-    implementation('com.github.ihsanbal:LoggingInterceptor:2.0.5') {
-        exclude group: 'org.json', module: 'json'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    dependencies {
+        implementation('com.github.ihsanbal:LoggingInterceptor:3.0.0') {
+            exclude group: 'org.json', module: 'json'
+        }
     }
 
     testImplementation 'junit:junit:4.12'
@@ -127,7 +130,7 @@ artifacts {
     archives javadocJar
     archives sourcesJar
 }
-version = '2.2.1'
+version = '2.3.1'
 bintray {
     user = 'reyhac'
     key = '54e82ce9da2e0bfc9130d5ec45f31d2c00f81657'
@@ -136,10 +139,10 @@ bintray {
         name = 'utilities'
 
         version {
-            name = '2.2.1'
+            name = '2.3.1'
             desc = 'test'
             released = new Date()
-            vcsTag = '2.2.1'
+            vcsTag = '2.3.1'
         }
 
         licenses = ['MIT']
